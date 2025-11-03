@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Idade</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .container {
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 5px;
+            background-color: #e6f2ff; /* Azul claro no fundo da caixa */
+        }
+        
+        input {
+            padding: 8px;
+            margin: 10px 0;
+            width: 200px;
+        }
+        
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        button:hover {
+            background-color: #0056b3;
+        }
+        
+        #resultado {
+            margin-top: 20px;
+            font-weight: bold;
+            min-height: 25px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Calculadora de Idade</h1>
+        
+        <div>
+            <label for="anoNascimento">Ano de Nascimento:</label><br>
+            <input type="number" id="anoNascimento" placeholder="Ex: 1990" min="1900" max="2025">
+        </div>
+
+        <button onclick="calcularIdade()">Calcular Idade</button>
+
+        <div id="resultado"></div>
+    </div>
+
+    <script>
+        function calcularIdade() {
+            const anoNascimento = document.getElementById('anoNascimento').value;
+            const resultado = document.getElementById('resultado');
+            
+            if (anoNascimento === '') {
+                resultado.innerHTML = 'Por favor, digite o ano de nascimento!';
+                resultado.style.color = 'red';
+                return;
+            }
+            
+            const anoNasc = parseInt(anoNascimento);
+            const anoAtual = new Date().getFullYear();
+            
+            if (anoNasc > anoAtual) {
+                resultado.innerHTML = 'Ano de nascimento não pode ser maior que o ano atual!';
+                resultado.style.color = 'red';
+                return;
+            }
+            
+            if (anoNasc < 1900) {
+                resultado.innerHTML = 'Digite um ano válido (a partir de 1900)!';
+                resultado.style.color = 'red';
+                return;
+            }
+            
+            const idade = anoAtual - anoNasc;
+            resultado.innerHTML = `Sua idade é: ${idade} anos`;
+            resultado.style.color = 'green';
+        }
+
+        document.getElementById('anoNascimento').addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                calcularIdade();
+            }
+        });
+    </script>
+</body>
+</html>
